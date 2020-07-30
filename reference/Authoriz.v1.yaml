@@ -6,17 +6,15 @@ info:
 servers:
   - url: 'http://localhost:3000'
 paths:
-  /api/rule:
+  /api/policy:
     get:
-      summary: Validates a API rule
+      summary: Validates a policy
       tags: []
       responses:
         '200':
           description: OK
         '400':
           description: Bad Request
-        '404':
-          description: Not Found
         '500':
           description: Internal Server Error
       operationId: get-api-validate
@@ -39,13 +37,45 @@ paths:
           name: act
       description: ''
     parameters: []
-  /api/management/rule:
     put:
-      summary: ''
-      operationId: put-api-management-rule
+      summary: Creates a new policy
+      operationId: put-api-rule
+      responses:
+        '201':
+          description: Created
+        '400':
+          description: Bad Request
+        '403':
+          description: Forbidden
+        '500':
+          description: Internal Server Error
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ValidateRule'
+        description: ''
+      security:
+        - jwtAuth: []
+    delete:
+      summary: Delete a policy
+      operationId: delete-api-rule
       responses:
         '200':
           description: OK
+        '400':
+          description: Bad Request
+        '403':
+          description: Forbidden
+        '500':
+          description: Internal Server Error
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ValidateRule'
+      security:
+        - jwtAuth: []
 components:
   schemas:
     ValidateRule:
