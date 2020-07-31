@@ -7,35 +7,6 @@ servers:
   - url: 'http://localhost:3000'
 paths:
   /api/policy:
-    get:
-      summary: Validates a policy
-      tags: []
-      responses:
-        '200':
-          description: OK
-        '400':
-          description: Bad Request
-        '500':
-          description: Internal Server Error
-      operationId: get-api-validate
-      parameters:
-        - schema:
-            type: string
-          in: query
-          name: sub
-        - schema:
-            type: string
-          in: query
-          name: ten
-        - schema:
-            type: string
-          in: query
-          name: res
-        - schema:
-            type: string
-          in: query
-          name: act
-      description: ''
     parameters: []
     put:
       summary: Creates a new policy
@@ -76,6 +47,38 @@ paths:
               $ref: '#/components/schemas/ValidateRule'
       security:
         - jwtAuth: []
+  /api/policy/group:
+    put:
+      summary: ''
+      operationId: put-api-policy-group
+      responses:
+        '201':
+          description: Created
+      security:
+        - jwtAuth: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                subject:
+                  type: string
+                tenant:
+                  type: string
+    get:
+      summary: ''
+      operationId: get-api-policy-group
+      responses:
+        '200':
+          description: OK
+  /api/validate:
+    post:
+      summary: ''
+      operationId: post-api-validate
+      responses:
+        '200':
+          description: OK
 components:
   schemas:
     ValidateRule:
